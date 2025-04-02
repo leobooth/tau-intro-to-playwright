@@ -1,4 +1,8 @@
+# ignore MacOS folder metadata
 .DS_Store
+
+# ignore JetBrains IDE project data
+.idea
 
 node_modules/
 /test-results/
