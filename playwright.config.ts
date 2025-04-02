@@ -5,27 +5,25 @@ import baseEnvUrl from './utils/environmentBaseUrl';
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
  */
+// import dotenv from 'dotenv';
+// import path from 'path';
+// dotenv.config({ path: path.resolve(__dirname, '.env') });
 require('dotenv').config();
+
 
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  // testDir: './tests',
-
+  testDir: 'tests',
   /* Run tests in files in parallel */
   fullyParallel: true,
-
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
-
   /* Retry on CI only */
-  // retries: process.env.CI ? 2 : 0,
-  retries: 2,
-
+  retries: process.env.CI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
-
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'html',
   // reporter: [['html', { open: 'always' }]], //always, never and on-failure (default).
@@ -33,15 +31,15 @@ export default defineConfig({
   // reporter: 'dot',
   // reporter: 'list',
   /**
-    reporter: [
-      ['list'],
-      ['json', {  outputFile: 'test-results.json' }]
-    ],
-  */
+   reporter: [
+   ['list'],
+   ['json', {  outputFile: 'test-results.json' }]
+   ],
+   */
   /**
-   * custom reports: https://playwright.dev/docs/test-reporters#custom-reporters 
-  */
-  
+   * custom reports: https://playwright.dev/docs/test-reporters#custom-reporters
+   */
+
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
@@ -55,23 +53,24 @@ export default defineConfig({
     // viewport: { width: 1280, height: 720 },
     // video: 'on-first-retry',
   },
-    // timeout: 30000, //https://playwright.dev/docs/test-timeouts
-    // expect: {
-      /**
-       * Maximum time expect() should wait for the condition to be met.
-       * For example in `await expect(locator).toHaveText();`
-       */
-      // timeout: 10000,
-    // },
+  // timeout: 30000, //https://playwright.dev/docs/test-timeouts
+  // expect: {
+  /**
+   * Maximum time expect() should wait for the condition to be met.
+   * For example in `await expect(locator).toHaveText();`
+   */
+  // timeout: 10000,
+  // },
 
   /* Folder for test artifacts such as screenshots, videos, traces, etc. */
   // outputDir: 'test-results/',
+
 
   /* Configure projects for major browsers */
   projects: [
     {
       name: 'chromium',
-      use: { 
+      use: {
         ...devices['Desktop Chrome'],
         // viewport: { width: 1280, height: 720 },
       },
@@ -89,32 +88,32 @@ export default defineConfig({
 
     {
       name: 'all-browsers-and-tests',
-      use: { 
+      use: {
         baseURL: 'https://playwright.dev/',
-         ...devices['Desktop Chrome']
+        ...devices['Desktop Chrome']
       },
     },
 
     {
       name: 'all-browsers-and-tests',
-      use: { 
+      use: {
         baseURL: 'https://playwright.dev/',
-         ...devices['Desktop Safari']
+        ...devices['Desktop Safari']
       },
     },
 
     {
       name: 'all-browsers-and-tests',
-      use: { 
+      use: {
         baseURL: 'https://playwright.dev/',
-         ...devices['Desktop Firefox']
+        ...devices['Desktop Firefox']
       },
     },
 
     // Example only
     {
       name: 'local',
-      use: { 
+      use: {
         baseURL: baseEnvUrl.local.home,
       },
     },
@@ -122,10 +121,10 @@ export default defineConfig({
     // Example only
     {
       name: 'ci',
-      use: { 
-         baseURL: process.env.CI
-          ? baseEnvUrl.ci.prefix + process.env.GITHUB_REF_NAME + baseEnvUrl.ci.suffix //https://dev-myapp-chapter-2.mydomain.com
-          : baseEnvUrl.staging.home,
+      use: {
+        baseURL: process.env.CI
+            ? baseEnvUrl.ci.prefix + process.env.GITHUB_REF_NAME + baseEnvUrl.ci.suffix //https://dev-myapp-chapter-2.mydomain.com
+            : baseEnvUrl.staging.home,
       },
       /**
        * GitHub variables: https://docs.github.com/en/actions/learn-github-actions/variables
@@ -150,7 +149,7 @@ export default defineConfig({
     // },
     // {
     //   name: 'Google Chrome',
-    //   use: { ..devices['Desktop Chrome'], channel: 'chrome' },
+    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
     // },
   ],
 
